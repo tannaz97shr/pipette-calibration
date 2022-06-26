@@ -5,9 +5,6 @@ interface CollectWeightNodeComponentProps {
   onSubmit(): void;
 }
 
-const handleStyle1 = { left: 20 };
-const handleStyle2 = { right: 20 };
-
 const CollectWeightsComponent = (props: CollectWeightNodeComponentProps) => {
   const { onSubmit } = props;
   return (
@@ -18,18 +15,7 @@ const CollectWeightsComponent = (props: CollectWeightNodeComponentProps) => {
         <input id="text" name="text" />
         <button onClick={useCallback(onSubmit, [])}>Submit</button>
       </div>
-      <Handle
-        type="source"
-        position={Position.Bottom}
-        id="a"
-        style={handleStyle1}
-      />
-      <Handle
-        type="source"
-        position={Position.Bottom}
-        id="b"
-        style={handleStyle2}
-      />
+      <Handle type="source" position={Position.Bottom} />
     </div>
   );
 };

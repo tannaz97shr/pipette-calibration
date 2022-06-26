@@ -1,10 +1,14 @@
-import { Node } from "react-flow-renderer";
+import { Node, Edge } from "react-flow-renderer";
 
 import CollectWeightNode from "../../components/collectWeightsNode";
+import TowTargetsNode from "../../components/towTargetsNode";
 
 export let weightTimes = 5;
 
-const nodeTypes = { weightCollector: CollectWeightNode };
+const nodeTypes = {
+  weightCollector: CollectWeightNode,
+  towTargetsNode: TowTargetsNode,
+};
 
 export const nodes: Node[] = [
   {
@@ -33,8 +37,10 @@ export const nodes: Node[] = [
     },
   },
   {
+    // it must have 2 handles
     id: "3",
     position: { x: 250, y: 150 },
+    type: "towTargetsNode",
     data: {
       label: [`Let's Weigh ${weightTimes} times`],
     },
@@ -47,7 +53,8 @@ export const nodes: Node[] = [
     },
   },
   {
-    id: "4",
+    // it must have 1 handle
+    id: "5",
     position: { x: 0, y: 250 },
     type: "weightCollector",
     data: {
@@ -55,12 +62,50 @@ export const nodes: Node[] = [
     },
   },
   {
-      id: "5",
-      position: { x: 500, y: 250 },
-      data: {
-          labe: ["Done!", "Now Check The Table To See The Results"]
-      }
-  }
+    id: "6",
+    position: { x: 500, y: 250 },
+    data: {
+      labe: ["Done!", "Now Check The Table To See The Results"],
+    },
+  },
 ];
 
-export const edges = [];
+export const edges: Edge[] = [
+  {
+    id: "e0-1",
+    source: "0",
+    target: "1",
+  },
+  {
+    id: "e1-2",
+    source: "1",
+    target: "2",
+  },
+  {
+    id: "e2-3",
+    source: "2",
+    target: "3",
+  },
+  {
+    id: "e3-4",
+    source: "3",
+    target: "4",
+    sourceHandle: "a",
+  },
+  {
+    id: "e4-5",
+    source: "3",
+    target: "4",
+  },
+  {
+    id: "e5-3",
+    source: "5",
+    target: "3",
+  },
+  {
+    id: "e3-6",
+    source: "3",
+    target: "6",
+    sourceHandle: "b",
+  },
+];
