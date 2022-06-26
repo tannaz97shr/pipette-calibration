@@ -2,6 +2,7 @@ import { useCallback } from "react";
 import { Handle, Position } from "react-flow-renderer";
 
 import Styles from "../../assets/styles/NodeStyles";
+import { WeightCollectorFormStyled } from "./styled";
 
 interface CollectWeightNodeComponentProps {
   onSubmit(): void;
@@ -13,12 +14,12 @@ const CollectWeightsComponent = (props: CollectWeightNodeComponentProps) => {
   return (
     <NodeContainerStyled>
       <Handle type="target" position={Position.Top} />
-      <div>
+      <WeightCollectorFormStyled onSubmit={useCallback(onSubmit, [])}>
         <label htmlFor="text">Wight:</label>
-        <input id="text" name="text" />
-        <button onClick={useCallback(onSubmit, [])}>Submit</button>
-      </div>
-      <Handle type="source" position={Position.Right} style={{top:0}} />
+        <input id="weight" name="number" />
+        <input type="submit" />
+      </WeightCollectorFormStyled>
+      <Handle type="source" position={Position.Right} style={{ top: 0 }} />
     </NodeContainerStyled>
   );
 };
