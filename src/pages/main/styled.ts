@@ -10,6 +10,7 @@ const FlowchartContainer = styled.div`
   width: 60%;
   height: 40rem;
   border: 1px solid #d1d1d1;
+  background-color: #93c5fd55;
 `;
 
 const Styles = { PageContainer, FlowchartContainer };

@@ -104,7 +104,6 @@ export const edges: Edge[] = [
     id: "e4-5",
     source: "4",
     target: "5",
-    type: "smoothstep",
     markerEnd: {
       type: MarkerType.ArrowClosed,
     },
