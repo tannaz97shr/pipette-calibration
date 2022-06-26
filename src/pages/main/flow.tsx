@@ -4,7 +4,7 @@ import ReactFlow, { Background } from "react-flow-renderer";
 import Styles from "./styled";
 import CollectWeightNode from "../../components/collectWeightsNode";
 import TowTargetsNode from "../../components/towTargetsNode";
-import { edges, getNodes, getEdges } from "./initial-elements";
+import { getNodes, getEdges } from "./initial-elements";
 
 const nodeTypes: any = {
   weightCollector: CollectWeightNode,
