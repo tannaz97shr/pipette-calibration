@@ -11,7 +11,7 @@ import styled from "styled-components";
   &[type="submit"] {
     width: 6rem;
     cursor: pointer;
-    background-color: #93c5fd;
+    background-color: #fde68a;
     align-self: center;
     font-size: 10px;
    }

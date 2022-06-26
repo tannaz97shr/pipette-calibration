@@ -1,68 +1,5 @@
 import { Node, Edge, MarkerType } from "react-flow-renderer";
 
-export let weightTimes = 5;
-
-export const nodes: Node[] = [
-  {
-    id: "0",
-    type: "input",
-    position: { x: 350, y: 20 },
-    data: {
-      label: ["start"],
-    },
-  },
-  {
-    id: "1",
-    position: { x: 350, y: 100 },
-    data: {
-      label: [
-        "Place a beaker with 1000 ul of distilled H2O",
-        "Balance and Tare",
-      ],
-    },
-  },
-  {
-    id: "2",
-    position: { x: 350, y: 200 },
-    data: {
-      label: ["Place a new pipette tip on the pipettor"],
-    },
-  },
-  {
-    // it must have 2 handles
-    id: "3",
-    position: { x: 350, y: 300 },
-    type: "towTargetsNode",
-    data: {
-      label: [`Let's Weigh ${weightTimes} times`],
-    },
-  },
-  {
-    id: "4",
-    position: { x: 100, y: 350 },
-    data: {
-      label: ["Aspirate and dispense 100% of the volume into the beaker"],
-    },
-  },
-  {
-    // it must have 1 handle
-    id: "5",
-    position: { x: 80, y: 500 },
-    type: "weightCollector",
-    data: {
-      label: ["Enter Weight"],
-    },
-  },
-  {
-    id: "6",
-    position: { x: 500, y: 450 },
-    type: "output",
-    data: {
-      label: ["Done!"],
-    },
-  },
-];
-
 export const edges: Edge[] = [
   {
     id: "e0-1",
@@ -95,7 +32,7 @@ export const edges: Edge[] = [
     target: "4",
     sourceHandle: "b",
     type: "smoothstep",
-    label:"n > 5",
+    label: "n > 5",
     markerEnd: {
       type: MarkerType.ArrowClosed,
     },
@@ -128,3 +65,84 @@ export const edges: Edge[] = [
     },
   },
 ];
+
+export const getNodes = (activeNode: number, loopSteps:number): Node[] => {
+  let newNodes: Node[] = [
+  {
+    id: "0",
+    type: "input",
+    position: { x: 350, y: 20 },
+    data: {
+      label: ["start"],
+      nextNode: 1
+    },
+  },
+  {
+    id: "1",
+    position: { x: 350, y: 100 },
+    data: {
+      label: [
+        "Place a beaker with 1000 ul of distilled H2O",
+        "Balance and Tare",
+      ],
+      nextNode: 2
+    },
+  },
+  {
+    id: "2",
+    position: { x: 350, y: 200 },
+    data: {
+      label: ["Place a new pipette tip on the pipettor"],
+      nextNode: 3
+    },
+  },
+  {
+    id: "3",
+    position: { x: 350, y: 300 },
+    type: "towTargetsNode",
+    data: {
+      label: [`Let's Weigh ${loopSteps} times`],
+      nextNode: loopSteps > 0 ? 4 : 6
+    },
+    style: { border: "1px solid #1a192b" },
+  },
+  {
+    id: "4",
+    position: { x: 100, y: 350 },
+    data: {
+      label: ["Aspirate and dispense 100% of the volume into the beaker"],
+      nextNode: 5
+    },
+  },
+  {
+    id: "5",
+    position: { x: 80, y: 500 },
+    type: "weightCollector",
+    style: { border: "1px solid #1a192b" },
+    data: {
+      label: ["Enter Weight"],
+      nextNode: 3
+    },
+  },
+  {
+    id: "6",
+    position: { x: 500, y: 450 },
+    type: "output",
+    data: {
+      label: ["Done!"],
+    },
+  },
+];
+  newNodes[activeNode] = {
+    ...newNodes[activeNode],
+    style: { border: "3px dashed #b91c1c" },
+  };
+  return newNodes;
+};
+
+export const getEdges = (activeNode: number): Edge[] => {
+  let newEdges = [...edges];
+  const index = newEdges.findIndex((item) => item.target === `${activeNode}`);
+  newEdges[index] = { ...newEdges[index], animated: true };
+  return newEdges;
+};

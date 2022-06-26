@@ -6,7 +6,9 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import Styles from "../../assets/styles/NodeStyles";
 import FormStyles from "./styled";
 
-interface CollectWeightNodeComponentProps {}
+interface CollectWeightNodeComponentProps {
+  data: any;
+}
 
 interface IFormInputs {
   weight: string;
