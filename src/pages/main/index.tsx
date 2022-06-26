@@ -1,7 +1,14 @@
-import { nodes } from "./initial-elements";
+import Flow from "./flow";
+
+import Styles from "./styled";
 
 const MainPage = () => {
-    return <div>Main Page</div>
-}
+  const { PageContainer } = Styles;
+  return (
+    <PageContainer>
+      <Flow />
+    </PageContainer>
+  );
+};
 
 export default MainPage;
