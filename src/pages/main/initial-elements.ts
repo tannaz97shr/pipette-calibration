@@ -1,4 +1,4 @@
-import { Node, Edge, MarkerType, Position } from "react-flow-renderer";
+import { Node, Edge, MarkerType } from "react-flow-renderer";
 
 export let weightTimes = 5;
 
