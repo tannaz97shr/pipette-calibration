@@ -4,6 +4,9 @@ const PageContainer = styled.div`
   width: 100%;
   display: flex;
   padding: 1rem;
+  background-color: salmon;
+  flex-direction: column;
+  align-items: center;
 `;
 
 const FlowchartContainer = styled.div`
@@ -25,6 +28,10 @@ const NextStepButtonStyled = styled.button`
   margin: 1rem;
 `;
 
-const Styles = { PageContainer, FlowchartContainer, NextStepButtonStyled };
+const TableContainer = styled.div`
+  margin-top: 2rem;
+`;
+
+const Styles = { PageContainer, FlowchartContainer, NextStepButtonStyled, TableContainer };
 
 export default Styles;

@@ -1,4 +1,5 @@
 import Flow from "./flow";
+import DataTable from "./recordsTable";
 
 import Styles from "./styled";
 
@@ -7,6 +8,7 @@ const MainPage = () => {
   return (
     <PageContainer>
       <Flow />
+      <DataTable />
     </PageContainer>
   );
 };

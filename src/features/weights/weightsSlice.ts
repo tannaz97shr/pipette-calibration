@@ -13,7 +13,7 @@ export interface WeightsState {
 }
 
 const initialState: WeightsState = {
-  records: new Array(5),
+  records: [],
 };
 
 export const weightsSlice = createSlice({
@@ -21,7 +21,7 @@ export const weightsSlice = createSlice({
   initialState,
   reducers: {
     addRecord: (state, action: PayloadAction<IActionType>) => {
-      state.records[action.payload.index] = action.payload.record;
+      state.records.push(action.payload.record);
     },
   },
 });
