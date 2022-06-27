@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
-import { nextRound } from "../steps/stepsSlice";
+import { nextRound, resetRound } from "../steps/stepsSlice";
 type recordsType = string | null;
 
 export interface IActionType {
@@ -29,6 +29,9 @@ export const weightsSlice = createSlice({
     builder.addCase(nextRound, (state) => {
       state.records.push([]);
     });
+    builder.addCase(resetRound, (state) => {
+      state.records.pop();
+    })
   },
 });
 
