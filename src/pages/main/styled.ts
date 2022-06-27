@@ -13,6 +13,18 @@ const FlowchartContainer = styled.div`
   background-color: #fde68a;
 `;
 
-const Styles = { PageContainer, FlowchartContainer };
+const NextStepButtonStyled = styled.button`
+  background-color: white;
+  padding: 8px;
+  border-radius: 4px;
+  border: 1px solid #92400e;
+  color: #92400e;
+  cursor: pointer;
+  position: absolute;
+  z-index: 1000;
+  margin: 1rem;
+`;
+
+const Styles = { PageContainer, FlowchartContainer, NextStepButtonStyled };
 
 export default Styles;

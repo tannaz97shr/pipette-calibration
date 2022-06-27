@@ -8,6 +8,7 @@ import FormStyles from "./styled";
 import type { RootState } from "../../store";
 import { useSelector, useDispatch } from "react-redux";
 import { addRecord } from "../../features/weights/weightsSlice";
+import { goToNextStep } from "../../features/steps/stepsSlice";
 
 interface IFormInputs {
   weight: string;
@@ -18,17 +19,20 @@ const CollectWeightsComponent = () => {
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm<IFormInputs>();
-  useSelector((state:RootState) => console.log("CollectWeightsComponent, use selector", state));
   const dispatch = useDispatch();
   const { WeightCollectorFormStyled, ErrorStyled, LabelStyled } = FormStyles;
   const onSubmit: SubmitHandler<IFormInputs> = (data) => {
-    console.log(data);
-    dispatch(addRecord({index: 1, record: data.weight}))
+    dispatch(addRecord({ index: 1, record: data.weight }));
+    dispatch(
+      goToNextStep({
+        nextNodeIndex: 3,
+      })
+    );
+    reset();
   };
-
-
   return (
     <NodeContainerStyled>
       <Handle type="target" position={Position.Top} />
