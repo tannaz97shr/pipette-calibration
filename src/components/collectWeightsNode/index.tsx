@@ -23,10 +23,10 @@ const CollectWeightsComponent = () => {
     formState: { errors },
   } = useForm<IFormInputs>();
   const dispatch = useDispatch();
-  const { flowStep } = useSelector((state: RootState) => state.steps);
+  const { flowStep, round } = useSelector((state: RootState) => state.steps);
   const { WeightCollectorFormStyled, ErrorStyled, LabelStyled } = FormStyles;
   const onSubmit: SubmitHandler<IFormInputs> = (data) => {
-    dispatch(addRecord({ index: 1, record: data.weight }));
+    dispatch(addRecord({ index: 1, record: data.weight, round: round }));
     dispatch(
       goToNextStep({
         nextNodeIndex: 3,

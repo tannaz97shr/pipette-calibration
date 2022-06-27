@@ -7,7 +7,11 @@ import CollectWeightNode from "../../components/collectWeightsNode";
 import TowTargetsNode from "../../components/towTargetsNode";
 import { getNodes, getEdges } from "./initial-elements";
 import { RootState } from "../../store";
-import { goToNextStep, resetRound } from "../../features/steps/stepsSlice";
+import {
+  goToNextStep,
+  resetRound,
+  nextRound,
+} from "../../features/steps/stepsSlice";
 
 const nodeTypes: any = {
   weightCollector: CollectWeightNode,
@@ -34,18 +38,27 @@ const Flow = () => {
   const resetRoundClicked = () => {
     dispatch(resetRound());
   };
-
+  const goToNextRound = () => {
+    dispatch(nextRound());
+  };
   return (
     <FlowchartContainer>
       <ControllerStyled>
         <NextStepButtonStyled onClick={resetRoundClicked}>
           Reset Round
         </NextStepButtonStyled>
-        {flowStep < myNodes.length && flowStep !== 5 ? (
+        {flowStep < myNodes.length && flowStep !== 5 && flowStep !== 6 ? (
           <NextStepButtonStyled onClick={onNextStepClicked}>
             Go to next step
           </NextStepButtonStyled>
-        ): "Fill The Form Please"}
+        ) : (
+          "Fill The Form Please"
+        )}
+        {flowStep == 6 && (
+          <NextStepButtonStyled onClick={goToNextRound}>
+            Next Round
+          </NextStepButtonStyled>
+        )}
       </ControllerStyled>
 
       <ReactFlow nodes={myNodes} edges={myEdges} nodeTypes={nodeTypes} />

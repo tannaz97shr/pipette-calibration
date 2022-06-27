@@ -15,7 +15,7 @@ export interface ISteps {
 const initialState: ISteps = {
   flowStep: 0,
   recordsLoopStep: RECORD_LOOP_STEP,
-  round: 1
+  round: 1,
 };
 
 export const stepsSlice = createSlice({
@@ -31,10 +31,15 @@ export const stepsSlice = createSlice({
     resetRound: (state) => {
       state.flowStep = 0;
       state.recordsLoopStep = RECORD_LOOP_STEP;
-    }
+    },
+    nextRound: (state) => {
+      state.flowStep = 0;
+      state.recordsLoopStep = RECORD_LOOP_STEP;
+      state.round++;
+    },
   },
 });
 
-export const { goToNextStep, resetRound } = stepsSlice.actions;
+export const { goToNextStep, resetRound, nextRound } = stepsSlice.actions;
 
 export default stepsSlice.reducer;

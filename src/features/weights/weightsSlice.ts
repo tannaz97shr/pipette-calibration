@@ -1,19 +1,20 @@
 import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
-
+import { nextRound } from "../steps/stepsSlice";
 type recordsType = string | null;
 
 export interface IActionType {
   index: number;
   record: string;
+  round: number;
 }
 
 export interface WeightsState {
-  records: recordsType[];
+  records: recordsType[][];
 }
 
 const initialState: WeightsState = {
-  records: [],
+  records: [[]],
 };
 
 export const weightsSlice = createSlice({
@@ -21,8 +22,13 @@ export const weightsSlice = createSlice({
   initialState,
   reducers: {
     addRecord: (state, action: PayloadAction<IActionType>) => {
-      state.records.push(action.payload.record);
+      state.records[action.payload.round - 1].push(action.payload.record);
     },
+  },
+  extraReducers: (builder) => {
+    builder.addCase(nextRound, (state) => {
+      state.records.push([]);
+    });
   },
 });
 

@@ -15,16 +15,18 @@ const DataTable = () => {
   }));
   cols.unshift({ title: "Test Volume", dataIndex: "volume" });
   const { records } = useSelector((state: RootState) => state.weights);
-  const theObject = records.reduce((acc, current, index) => {
-    acc[`record${index + 1}`] = current;
-    return acc;
-  }, {} as any);
-  theObject["volume"] = "100%";
-  console.log(theObject, cols, "the resutl");
+  const theObject = records.map((r) => {
+    const row = r.reduce((acc, current, index) => {
+      acc[`record${index + 1}`] = current;
+      return acc;
+    }, {} as any);
+    row["volume"] = "100%";
+    return row;
+  });
 
   return (
     <TableContainer>
-      <Table dataSource={[theObject]} columns={cols} pagination={false} />
+      <Table dataSource={theObject} columns={cols} pagination={false} />
     </TableContainer>
   );
 };
