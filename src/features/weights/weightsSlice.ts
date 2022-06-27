@@ -1,6 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
 import { nextRound, resetRound } from "../steps/stepsSlice";
+
 type recordsType = string | null;
 
 export interface IActionType {
