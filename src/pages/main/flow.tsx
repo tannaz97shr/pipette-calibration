@@ -6,8 +6,8 @@ import Styles from "./styled";
 import CollectWeightNode from "../../components/collectWeightsNode";
 import TowTargetsNode from "../../components/towTargetsNode";
 import { getNodes, getEdges } from "./initial-elements";
-import type { RootState } from "../../store";
-import { goToNextStep } from "../../features/steps/stepsSlice";
+import { RootState } from "../../store";
+import { goToNextStep, resetRound } from "../../features/steps/stepsSlice";
 
 const nodeTypes: any = {
   weightCollector: CollectWeightNode,
@@ -15,9 +15,9 @@ const nodeTypes: any = {
 };
 
 const Flow = () => {
-  const { FlowchartContainer, NextStepButtonStyled } = Styles;
+  const { FlowchartContainer, NextStepButtonStyled, ControllerStyled } = Styles;
   const dispatch = useDispatch();
-  const { flowStep, recordsLoopStep } = useSelector(
+  const { flowStep, recordsLoopStep, round } = useSelector(
     (state: RootState) => state.steps
   );
 
@@ -31,13 +31,23 @@ const Flow = () => {
       })
     );
   };
+  const resetRoundClicked = () => {
+    dispatch(resetRound());
+  };
+
   return (
     <FlowchartContainer>
-      {flowStep < myNodes.length && flowStep !== 5 && (
-        <NextStepButtonStyled onClick={onNextStepClicked}>
-          Go to next step
+      <ControllerStyled>
+        <NextStepButtonStyled onClick={resetRoundClicked}>
+          Reset Round
         </NextStepButtonStyled>
-      )}
+        {flowStep < myNodes.length && flowStep !== 5 ? (
+          <NextStepButtonStyled onClick={onNextStepClicked}>
+            Go to next step
+          </NextStepButtonStyled>
+        ): "Fill The Form Please"}
+      </ControllerStyled>
+
       <ReactFlow nodes={myNodes} edges={myEdges} nodeTypes={nodeTypes} />
     </FlowchartContainer>
   );

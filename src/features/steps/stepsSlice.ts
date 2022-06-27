@@ -9,11 +9,13 @@ export interface IActionType {
 export interface ISteps {
   flowStep: number;
   recordsLoopStep: number;
+  round: number;
 }
 
 const initialState: ISteps = {
   flowStep: 0,
   recordsLoopStep: RECORD_LOOP_STEP,
+  round: 1
 };
 
 export const stepsSlice = createSlice({
@@ -26,9 +28,13 @@ export const stepsSlice = createSlice({
       }
       state.flowStep = action.payload.nextNodeIndex;
     },
+    resetRound: (state) => {
+      state.flowStep = 0;
+      state.recordsLoopStep = RECORD_LOOP_STEP;
+    }
   },
 });
 
-export const { goToNextStep } = stepsSlice.actions;
+export const { goToNextStep, resetRound } = stepsSlice.actions;
 
 export default stepsSlice.reducer;
