@@ -1,7 +1,10 @@
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
+import weightsReducer from "./features/weights/weightsSlice";
 
 export const store = configureStore({
-  reducer: {},
+  reducer: {
+    weights: weightsReducer
+  },
 });
 
 export type RootState = ReturnType<typeof store.getState>;

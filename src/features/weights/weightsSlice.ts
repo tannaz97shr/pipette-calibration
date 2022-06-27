@@ -3,17 +3,29 @@ import type { PayloadAction } from "@reduxjs/toolkit";
 
 type recordsType = string | null;
 
+export interface IactionType {
+  index: number;
+  record: string;
+}
+
 export interface WeightsState {
-    records: recordsType[];
+  records: recordsType[];
 }
 
 const initialState: WeightsState = {
-    records: new Array(5)
-}
+  records: new Array(5),
+};
 
 export const weightsSlice = createSlice({
-    name: "weights",
-    initialState,
-    reducers: {
-    }
-})
+  name: "weights",
+  initialState,
+  reducers: {
+    addRecord: (state, action: PayloadAction<IactionType>) => {
+      state.records[action.payload.index] = action.payload.record;
+    },
+  },
+});
+
+export const { addRecord } = weightsSlice.actions;
+
+export default weightsSlice.reducer;

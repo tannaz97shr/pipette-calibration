@@ -5,29 +5,44 @@ import { SubmitHandler, useForm } from "react-hook-form";
 
 import Styles from "../../assets/styles/NodeStyles";
 import FormStyles from "./styled";
-
-interface CollectWeightNodeComponentProps {
-  data: any;
-}
+import type { RootState } from "../../store";
+import { useSelector, useDispatch } from "react-redux";
+import { addRecord } from "../../features/weights/weightsSlice";
 
 interface IFormInputs {
   weight: string;
 }
 
-const CollectWeightsComponent = (props: CollectWeightNodeComponentProps) => {
+const CollectWeightsComponent = () => {
   const { NodeContainerStyled } = Styles;
-  const { register, handleSubmit, formState: { errors } } = useForm<IFormInputs>();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<IFormInputs>();
+  useSelector((state:RootState) => console.log("CollectWeightsComponent, use selector", state));
+  const dispatch = useDispatch();
   const { WeightCollectorFormStyled, ErrorStyled, LabelStyled } = FormStyles;
-  const onSubmit: SubmitHandler<IFormInputs> = (data) => console.log(data);
+  const onSubmit: SubmitHandler<IFormInputs> = (data) => {
+    console.log(data);
+    dispatch(addRecord({index: 1, record: data.weight}))
+  };
+
+
   return (
     <NodeContainerStyled>
       <Handle type="target" position={Position.Top} />
       <WeightCollectorFormStyled onSubmit={handleSubmit(onSubmit)}>
         <LabelStyled>Weight:</LabelStyled>
         <input
-          {...register("weight", { required: true, pattern:/^(0|[1-9]\d*)(\.\d+)?$/ })}
+          {...register("weight", {
+            required: true,
+            pattern: /^(0|[1-9]\d*)(\.\d+)?$/,
+          })}
         />
-        {errors.weight && <ErrorStyled>Please insert a valid number!</ErrorStyled>}
+        {errors.weight && (
+          <ErrorStyled>Please insert a valid number!</ErrorStyled>
+        )}
         <input type="submit" />
       </WeightCollectorFormStyled>
       <Handle type="source" position={Position.Right} style={{ top: 0 }} />
