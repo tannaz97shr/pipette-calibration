@@ -1,10 +1,13 @@
 import { useState } from "react";
-import ReactFlow, { Background } from "react-flow-renderer";
+import ReactFlow from "react-flow-renderer";
+import { useSelector, useDispatch } from 'react-redux'
 
 import Styles from "./styled";
 import CollectWeightNode from "../../components/collectWeightsNode";
 import TowTargetsNode from "../../components/towTargetsNode";
 import { getNodes, getEdges } from "./initial-elements";
+import type { RootState } from "../../store";
+import {goToNextStep} from "../../features/steps/stepsSlice";
 
 const nodeTypes: any = {
   weightCollector: CollectWeightNode,
@@ -12,19 +15,19 @@ const nodeTypes: any = {
 };
 
 const Flow = () => {
-  const [currentNode, setCurrentNode] = useState<number>(0);
-  const [loopSteps, setLoopSteps] = useState<number>(5);
   const { FlowchartContainer } = Styles;
-  const myNodes = getNodes(currentNode, loopSteps);
-  const myEdges = getEdges(currentNode);
-  const gotToNextNode = () => {
-    if (currentNode === 3 && loopSteps > 0) setLoopSteps(loopSteps - 1);
-    setCurrentNode(myNodes[currentNode].data.nextNode);
-  };
+  const dispatch = useDispatch();
+  const {flowStep, recordsLoopStep} = useSelector((state:RootState) => state.steps)
+
+  const myNodes = getNodes(flowStep, recordsLoopStep);
+  const myEdges = getEdges(flowStep);
+
   return (
     <FlowchartContainer>
-      {currentNode < myNodes.length && (
-        <button onClick={gotToNextNode}>Go to next step</button>
+      {flowStep < myNodes.length && (
+        <button onClick={() => dispatch(goToNextStep({
+          nextNodeIndex: myNodes[flowStep].data.nextNode
+        }))}>Go to next step</button>
       )}
       <ReactFlow nodes={myNodes} edges={myEdges} nodeTypes={nodeTypes} />
     </FlowchartContainer>
