@@ -9,7 +9,6 @@ import Styles from "./styled";
 const CalculateTable = () => {
   const { TableContainer } = Styles;
   const { records } = useSelector((state: RootState) => state.weights);
-  console.log("Calculate Tablr record: ", records);
 
   const cols = [
     {
@@ -40,7 +39,6 @@ const CalculateTable = () => {
   ];
 
   const dataSource = records.map(item => item);
-  console.log("data source calculate", dataSource)
 
   return (
     <TableContainer>

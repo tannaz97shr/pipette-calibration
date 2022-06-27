@@ -12,6 +12,7 @@ import {
   resetRound,
   nextRound,
 } from "../../features/steps/stepsSlice";
+import { removeRoundRecords } from "../../features/weights/weightsSlice";
 
 const nodeTypes: any = {
   weightCollector: CollectWeightNode,
@@ -24,6 +25,8 @@ const Flow = () => {
   const { flowStep, recordsLoopStep, round } = useSelector(
     (state: RootState) => state.steps
   );
+  const {records} = useSelector((state: RootState) => state.weights)
+  
 
   const myNodes = getNodes(flowStep, recordsLoopStep);
   const myEdges = getEdges(flowStep);
@@ -37,6 +40,7 @@ const Flow = () => {
   };
   const resetRoundClicked = () => {
     dispatch(resetRound());
+    dispatch(removeRoundRecords({round: round}));
   };
   const goToNextRound = () => {
     dispatch(nextRound());

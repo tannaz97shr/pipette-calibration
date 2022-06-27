@@ -24,17 +24,17 @@ export const weightsSlice = createSlice({
     addRecord: (state, action: PayloadAction<IActionType>) => {
       state.records[action.payload.round - 1].push(action.payload.record);
     },
+    removeRoundRecords: (state, action: PayloadAction<{round:number}>) => {
+      state.records[action.payload.round - 1] = [];
+    }
   },
   extraReducers: (builder) => {
     builder.addCase(nextRound, (state) => {
       state.records.push([]);
     });
-    builder.addCase(resetRound, (state) => {
-      state.records.pop();
-    })
   },
 });
 
-export const { addRecord } = weightsSlice.actions;
+export const { addRecord, removeRoundRecords } = weightsSlice.actions;
 
 export default weightsSlice.reducer;
