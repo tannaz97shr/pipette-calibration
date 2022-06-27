@@ -23,6 +23,7 @@ const CollectWeightsComponent = () => {
     formState: { errors },
   } = useForm<IFormInputs>();
   const dispatch = useDispatch();
+  const { flowStep } = useSelector((state: RootState) => state.steps);
   const { WeightCollectorFormStyled, ErrorStyled, LabelStyled } = FormStyles;
   const onSubmit: SubmitHandler<IFormInputs> = (data) => {
     dispatch(addRecord({ index: 1, record: data.weight }));
@@ -47,7 +48,7 @@ const CollectWeightsComponent = () => {
         {errors.weight && (
           <ErrorStyled>Please insert a valid number!</ErrorStyled>
         )}
-        <input type="submit" />
+        <input type="submit" disabled={flowStep !== 5} />
       </WeightCollectorFormStyled>
       <Handle type="source" position={Position.Right} style={{ top: 0 }} />
     </NodeContainerStyled>

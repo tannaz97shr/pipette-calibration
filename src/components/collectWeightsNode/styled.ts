@@ -15,6 +15,11 @@ import styled from "styled-components";
     align-self: center;
     font-size: 10px;
    }
+
+   &[disabled] {
+     background-color: #f0f0f0;
+     cursor: not-allowed;
+   }
   }
 `;
 
