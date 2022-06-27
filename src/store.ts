@@ -1,9 +1,11 @@
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import weightsReducer from "./features/weights/weightsSlice";
+import stepsReducer from "./features/steps/stepsSlice";
 
 export const store = configureStore({
   reducer: {
-    weights: weightsReducer
+    weights: weightsReducer,
+    steps: stepsReducer,
   },
 });
 

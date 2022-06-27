@@ -1,0 +1,1 @@
+export const RECORD_LOOP_STEP = 5;
