@@ -1,10 +1,9 @@
 import { Table } from "antd";
-import { useEffect } from "react";
 import { useSelector } from "react-redux";
-import { ColumnsType } from "antd/es/table/interface";
 
 import { RECORD_LOOP_STEP } from "../../constances";
 import { RootState } from "../../store";
+
 import Styles from "./styled";
 
 const DataTable = () => {
@@ -12,11 +11,13 @@ const DataTable = () => {
   const cols = [...new Array(RECORD_LOOP_STEP)].map((_, index) => ({
     title: `Dispense-${index + 1}`,
     dataIndex: `record${index + 1}`,
+    key: `record${index + 1}`,
   }));
-  cols.unshift({ title: "Test Volume", dataIndex: "volume" });
+  cols.unshift({ title: "Test Volume", dataIndex: "volume", key: "volume" });
   const { records } = useSelector((state: RootState) => state.weights);
-  const theObject = records.map((r) => {
-    const row = r.reduce((acc, current, index) => {
+  const dataSourceObject = records.map((record) => {
+    const row = record.reduce((acc, current, index) => {
+      acc["key"] = index;
       acc[`record${index + 1}`] = current;
       return acc;
     }, {} as any);
@@ -26,7 +27,7 @@ const DataTable = () => {
 
   return (
     <TableContainer>
-      <Table dataSource={theObject} columns={cols} pagination={false} />
+      <Table dataSource={dataSourceObject} columns={cols} pagination={false} />
     </TableContainer>
   );
 };

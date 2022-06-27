@@ -1,7 +1,7 @@
 import Flow from "./flow";
 import DataTable from "./recordsTable";
-
 import Styles from "./styled";
+import CalculateTable from "./calculateTable";
 
 const MainPage = () => {
   const { PageContainer } = Styles;
@@ -9,6 +9,7 @@ const MainPage = () => {
     <PageContainer>
       <Flow />
       <DataTable />
+      <CalculateTable />
     </PageContainer>
   );
 };

@@ -47,13 +47,12 @@ const Flow = () => {
         <NextStepButtonStyled onClick={resetRoundClicked}>
           Reset Round
         </NextStepButtonStyled>
-        {flowStep < myNodes.length && flowStep !== 5 && flowStep !== 6 ? (
+        {flowStep < myNodes.length && flowStep !== 5 && flowStep !== 6 && (
           <NextStepButtonStyled onClick={onNextStepClicked}>
             Go to next step
           </NextStepButtonStyled>
-        ) : (
-          "Fill The Form Please"
         )}
+        {flowStep === 5 && "Please Fill The Form"}
         {flowStep == 6 && (
           <NextStepButtonStyled onClick={goToNextRound}>
             Next Round
