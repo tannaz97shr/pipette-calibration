@@ -82,8 +82,7 @@ export const getNodes = (activeNode: number, loopSteps:number): Node[] => {
     position: { x: 350, y: 100 },
     data: {
       label: [
-        "Place a beaker with 1000 ul of distilled H2O",
-        "Balance and Tare",
+        "Place a beaker with 1000ul of distilled H20 on the balance and tare"
       ],
       nextNode: 2
     },
