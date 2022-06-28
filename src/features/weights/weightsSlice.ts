@@ -2,6 +2,8 @@ import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
 import { nextRound, resetRound } from "../steps/stepsSlice";
 
+import { mean } from "mathjs";
+
 type recordsType = string | null;
 
 export interface IActionType {
@@ -31,11 +33,11 @@ const initialState: WeightsState = {
 
 // To Move To Utils :
 const meanCalculator = (records: recordsType[]): number => {
-  let sum = 0;
+  const tempArray: number[] = [];
   records.forEach((record) => {
-    if (record) sum = sum + parseFloat(record);
+    if (record) tempArray.push(parseFloat(record) * 100);
   });
-  return (sum * 100) / (records.length * 100);
+  return mean(tempArray) / 100;
 };
 
 export const weightsSlice = createSlice({
