@@ -2,8 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
 import { nextRound, resetRound } from "../steps/stepsSlice";
 
-import { meanCalculator, stdDeviationCalculator } from "../../utils/calculators";
-
+import { dataCalculator } from "../../utils/calculators";
 
 export type recordsType = string | null;
 
@@ -32,7 +31,6 @@ const initialState: WeightsState = {
   calculatedData: [],
 };
 
-
 export const weightsSlice = createSlice({
   name: "weights",
   initialState,
@@ -44,14 +42,10 @@ export const weightsSlice = createSlice({
       state.records[action.payload.round - 1] = [];
     },
     calculateData: (state, action: PayloadAction<{ round: number }>) => {
-      const data = {
-        key: `${action.payload.round}`,
-        testVolume: "100%",
-        mean: meanCalculator(state.records[action.payload.round - 1]),
-        stdDeciation: stdDeviationCalculator(state.records[action.payload.round - 1]),
-        accuracy: 0,
-        precision: 0,
-      };
+      const data = dataCalculator(
+        state.records[action.payload.round - 1],
+        action.payload.round
+      );
       state.calculatedData.push(data);
     },
   },
