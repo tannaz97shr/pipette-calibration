@@ -2,9 +2,10 @@ import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
 import { nextRound, resetRound } from "../steps/stepsSlice";
 
-import { mean } from "mathjs";
+import { meanCalculator, stdDeviationCalculator } from "../../utils/calculators";
 
-type recordsType = string | null;
+
+export type recordsType = string | null;
 
 export interface IActionType {
   index: number;
@@ -31,14 +32,6 @@ const initialState: WeightsState = {
   calculatedData: [],
 };
 
-// To Move To Utils :
-const meanCalculator = (records: recordsType[]): number => {
-  const tempArray: number[] = [];
-  records.forEach((record) => {
-    if (record) tempArray.push(parseFloat(record) * 100);
-  });
-  return mean(tempArray) / 100;
-};
 
 export const weightsSlice = createSlice({
   name: "weights",
@@ -55,7 +48,7 @@ export const weightsSlice = createSlice({
         key: `${action.payload.round}`,
         testVolume: "100%",
         mean: meanCalculator(state.records[action.payload.round - 1]),
-        stdDeciation: 0,
+        stdDeciation: stdDeviationCalculator(state.records[action.payload.round - 1]),
         accuracy: 0,
         precision: 0,
       };
