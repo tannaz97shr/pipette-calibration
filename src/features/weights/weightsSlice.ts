@@ -19,6 +19,7 @@ export interface DataType {
   stdDeciation: number;
   accuracy: number;
   precision: number;
+  round: number;
 }
 
 export interface WeightsState {
