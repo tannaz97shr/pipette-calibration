@@ -29,6 +29,8 @@ const Flow = () => {
     (state: RootState) => state.steps
   );
 
+  const { calculatedData } = useSelector((state: RootState) => state.weights);
+
   const myNodes = getNodes(flowStep, recordsLoopStep);
   const myEdges = getEdges(flowStep);
 
@@ -45,10 +47,9 @@ const Flow = () => {
   };
   const goToNextRound = () => {
     dispatch(nextRound());
-    //
   };
   useEffect(() => {
-    if (flowStep === 6) {
+    if (flowStep === 6 && !calculatedData[round - 1]) {
       dispatch(calculateData({ round: round }));
     }
   }, [flowStep]);

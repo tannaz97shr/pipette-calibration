@@ -2,11 +2,12 @@ import styled from "styled-components";
 
 const PageContainer = styled.div`
   width: 100%;
+  min-height: 100vh;
   display: flex;
   padding: 1rem;
-  background-color: salmon;
   flex-direction: column;
   align-items: center;
+  background-color: #365314;
 `;
 
 const FlowchartContainer = styled.div`

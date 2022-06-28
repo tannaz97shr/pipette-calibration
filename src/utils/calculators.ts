@@ -1,7 +1,15 @@
-import { mean, std } from "mathjs";
+import { mean, std, abs } from "mathjs";
 
 import type { recordsType, DataType } from "../features/weights/weightsSlice";
 import { TOTAL_VOLUME_MICRO_LITER } from "../constances";
+
+const precisionCalculator = (records: recordsType[], mean: number) => {
+  let sum = 0;
+  records.forEach((record) => {
+    if (record) sum = sum + abs(parseFloat(record) * 100 - mean * 100);
+  });
+  return sum / TOTAL_VOLUME_MICRO_LITER;
+};
 
 export const dataCalculator = (
   records: recordsType[],
@@ -20,6 +28,6 @@ export const dataCalculator = (
     mean: resultMean,
     stdDeciation: resultStdDevision,
     accuracy: resultAccuracy,
-    precision: 0,
+    precision: precisionCalculator(records, resultMean),
   };
 };
