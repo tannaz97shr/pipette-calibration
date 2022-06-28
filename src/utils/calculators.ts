@@ -24,6 +24,7 @@ export const dataCalculator = (
   const resultAccuracy = (resultMean / TOTAL_VOLUME_MICRO_LITER) * 100;
   return {
     key: `${round}`,
+    round: round,
     testVolume: "100%",
     mean: resultMean,
     stdDeciation: resultStdDevision,

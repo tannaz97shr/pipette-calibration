@@ -14,14 +14,21 @@ const DataTable = () => {
     key: `record${index + 1}`,
   }));
   cols.unshift({ title: "Test Volume", dataIndex: "volume", key: "volume" });
+  cols.unshift({
+    title: "Round",
+    dataIndex: "round",
+    key: "round",
+  });
   const { records } = useSelector((state: RootState) => state.weights);
+  const { round } = useSelector((state: RootState) => state.steps);
   const dataSourceObject = records.map((record) => {
     const row = record.reduce((acc, current, index) => {
       acc["key"] = index;
+      acc["round"] = round;
+      acc["volume"] = "100%";
       acc[`record${index + 1}`] = current;
       return acc;
     }, {} as any);
-    row["volume"] = "100%";
     return row;
   });
 

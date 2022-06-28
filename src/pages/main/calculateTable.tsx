@@ -6,12 +6,16 @@ import { RootState } from "../../store";
 import { DataType } from "../../features/weights/weightsSlice";
 import Styles from "./styled";
 
-
 const CalculateTable = () => {
   const { TableContainer } = Styles;
   const { calculatedData } = useSelector((state: RootState) => state.weights);
 
   const cols: ColumnsType<DataType> = [
+    {
+      title: "Round",
+      dataIndex: "round",
+      key: "round",
+    },
     {
       title: "Test Volume",
       dataIndex: "testVolume",
